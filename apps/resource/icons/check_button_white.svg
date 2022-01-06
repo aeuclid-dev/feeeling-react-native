@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="77" height="77" viewBox="0 0 77 77">
+  <defs>
+    <circle id="check_button_white-b" cx="22.5" cy="22.5" r="22.5"/>
+    <filter id="check_button_white-a" width="231.1%" height="231.1%" x="-65.6%" y="-41.1%" filterUnits="objectBoundingBox">
+      <feMorphology in="SourceAlpha" radius="5" result="shadowSpreadOuter1"/>
+      <feOffset dy="11" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="13"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.22803442   0 0 0 0 0.0353610878   0 0 0 0 0.0166289582  0 0 0 1 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(16 5)">
+    <use fill="#000" filter="url(#check_button_white-a)" xlink:href="#check_button_white-b"/>
+    <use fill="currentColor" xlink:href="#check_button_white-b"/>
+    <path fill="#FF6F61" d="M20.4264918,28.6802379 L15.2339678,23.4877139 C14.9220107,23.1757568 14.9220107,22.6699538 15.2339678,22.3579655 L16.363685,21.228217 C16.6756422,20.9162287 17.1814764,20.9162287 17.4934335,21.228217 L20.991366,24.7261184 L28.4835478,17.2339678 C28.7955049,16.9220107 29.3013391,16.9220107 29.6132962,17.2339678 L30.7430134,18.3637163 C31.0549705,18.6756734 31.0549705,19.1814764 30.7430134,19.4934647 L21.5562402,28.6802691 C21.2442519,28.9922262 20.7384489,28.9922262 20.4264918,28.6802379 L20.4264918,28.6802379 Z"/>
+  </g>
+</svg>

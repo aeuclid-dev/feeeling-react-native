@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "915856512769",
+    "project_id": "feeeling-65bc9",
+    "storage_bucket": "feeeling-65bc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915856512769:android:bf21043fc9815478e92d00",
+        "android_client_info": {
+          "package_name": "com.aeuclid.feeeling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915856512769-gffuseuok3s30vf3tfpb7uad2b4flvd3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZQ2tRCcBb7PDqO0NcYq-rVbXHDiMyyHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915856512769-gffuseuok3s30vf3tfpb7uad2b4flvd3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
