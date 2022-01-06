@@ -1,116 +1,109 @@
-import XEnvironment from "./XEnvironment";
 
-/**
- * RTCPeerConnection wrapper 로 connection 수립 과정을 일반화 시킨 인터페이스 클래스입니다.
- * 
- */
+
 export default class XRTCPeerConnection {
-    static from = null;
-    static channel = null;
-    static stream = null;
-    
-    static _map = new Map();
     static _configuration = null;
+    static _stream = null;
+    static _channel = null;
+    static _from = null;
+    static _map = new Map();
 
     static get configuration(){ return XRTCPeerConnection._configuration; }
-    static get map(){ return XRTCPeerConnection._map; }
 
+    static set stream(v){ XRTCPeerConnection._stream = v; }
+    static set channel(v){
+        XRTCPeerConnection._channel = v;
 
-    static answer(offer, view) {
-        const connection = new XRTCPeerConnection(offer.from, view);
-        const answer = await connection.answer(offer.msg);
+        XRTCPeerConnection._channel.onanswer = (json => XRTCPeerConnection.answer(json));
+        XRTCPeerConnection._channel.onicecandidate = (json => {
+            const connection = XRTCPeerConnection._map.get(json.from);
 
-        XRTCPeerConnection.channel.res(offer, { type: 'answer', from: XRTCPeerConnection.from, to: connection.to, msg: answer });
+            connection._o.addIceCandidate(json.msg)
+                         .catch(e => console.log(e));
+            
+        });
     }
 
-    constructor(to, view) {
+    static async answer(offer) {
+        const connection = new XRTCPeerConnection(offer.from);
+                           await connection._o.setRemoteDescription(offer.msg);
+        const answer     = await connection._o.createAnswer();
+                           await connection._o.setLocalDescription(answer);
+
+        XRTCPeerConnection._channel.res(offer, {type: 'answer', from: XRTCPeerConnection._from, to: connection.to, msg: answer});
+    }
+
+    constructor(to) {
         this._o = new RTCPeerConnection(XRTCPeerConnection.configuration);
 
-        if(XEnvironment.ReactNative === XEnvironment.type) {
-            this._o.addStream(XRTCPeerConnection.stream);
+        XRTCPeerConnection._stream.getTracks().forEach(track => this._o.addTrack(track, XRTCPeerConnection._stream));
 
-            this._o.onaddstream = (event => onAddStream(event));
-            this._o.onremovestream = (event => onRemoveStream(event));
-        } else {
-            /**
-             * @todo    implement to use addTrack method
-             */
-        }
-
-        this._o.onconnectionstatechange = (event => onConnectionStateChange(event));
-        this._o.ondatachannel = (event => onDataChannel(event));
-        this._o.onicecandidate = (event => onIceCandidate(event));
-        this._o.onicecandidateerror = (event => onIceCandidateError(event));
-        this._o.oniceconnectionstatechange = (event => onIceConnectionStateChange(event));
-        this._o.onicegatheringstatechange = (event => onIceGatheringStateChange(event));
-        this._o.onnegotiationneeded = (event => onNegotiationNeeded(event));
-        this._o.onsignalingstatechange = (event => onSignalingStateChange(event));
-        this._o.ontrack = (event => onTrack(event));
+        this._o.onconnectionstatechange = (event => this.onConnectionStateChange(event));
+        this._o.ondatachannel = (event => this.onDataChannel(event));
+        this._o.onicecandidate = (event => this.onIceCandidate(event));
+        this._o.onicecandidateerror = (event => this.onIceCandidateError(event));
+        this._o.oniceconnectionstatechange = (event => this.onIceConnectionStateChange(event));
+        this._o.onicegatheringstatechange = (event => this.onIceGatheringStateChange(event));
+        this._o.onnegotiationneeded = (event => this.onNegotiationNeeded(event));
+        this._o.onsignalingstatechange = (event => this.onSignalingStateChange(event));
+        this._o.ontrack = (event => this.onTrack(event));
+        this._o.onaddstream = (event => this.onAddStream(event));
+        this._o.onremovestream = (event => this.onRemoveStream(event));
 
         this._to = to;
-        this._view = view;
 
-        XRTCPeerConnection._map.set(this._to, this);
+        this._map.set(this._to, this);
     }
 
-    get to() { return this._to; }
+    get to(){ return this._to; }
 
-    async offer() {
-        const offer = await this._o.createOffer();
-                      await this._o.setLocalDescription(offer);
-        const json  = await XRTCPeerConnection.channel.req({ type: 'offer', from: XRTCPeerConnection.from, to: this._to, msg: offer });
-                      await this._o.setRemoteDescription(json.msg);
-    }
-
-    async answer(offer) {
-                       await this._o.setRemoteDescription(offer);
-        const answer = await this._o.createAnswer();
-                       await this._o.setLocalDescription(answer);
-
-        return answer;
+    offer() {
+        const offer  = await this._o.createOffer();
+                       await this._o.setLocalDescription(offer);
+        const answer = await XRTCPeerConnection._channel.req({ type: 'offer', from: XRTCPeerConnection.from, to: this._to, msg: offer});
+                       await this._o.setRemoteDescription(answer.msg);
     }
 
     onConnectionStateChange(event) {
 
     }
 
-    onDataChannel(event){
+    onDataChannel(event) {
+
+    }
+    
+    onIceCandidate(event) {
+        XRTCPeerConnection._channel.send({type: 'candidate', from: XRTCPeerConnection.from, to: this.to, msg: event.candidate});
+    }
+
+    onIceCandidateError(event) {
 
     }
 
-    onIceCandidate(event){
-        XRTCPeerConnection.channel.req({ type: 'candidate', from: XRTCPeerConnection.from, to: this._to, msg: event.candidate });
-    }
-
-    onIceCandidateError(event){
+    onIceConnectionStateChange(event) {
 
     }
 
-    onIceConnectionStateChange(event){
+    onIceGatheringStateChange(event) {
 
     }
 
-    onIceGatheringStateChange(event){
+    onNegotiationNeeded(event) {
 
     }
 
-    onNegotiationNeeded(event){
+    onSignalingStateChange(event) {
 
     }
 
-    onSignalingStateChange(event){
-
+    onTrack(event) {
+        console.log('implement this');
     }
 
-    onTrack(event){
-
+    onAddStream(event) {
+        console.log('implement this');
     }
 
-    onAddStream(event){
-
-    }
-
-    onRemoveStream(event){
+    onRemoveStream(event) {
 
     }
 }
