@@ -32,6 +32,7 @@ global.Buffer = global.Buffer || require('buffer').Buffer;
 
 export const getUserInfo = () => async (dispatch) => {
   let t = getMyStorageItem('token');
+  console.log("token > ", t);
   if (t !== null && t !== '') {
     let axiosConfig = {
       headers: {

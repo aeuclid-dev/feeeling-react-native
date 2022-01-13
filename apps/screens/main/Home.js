@@ -43,6 +43,8 @@ export default function Home(props) {
   const [listFilterVisible, setListFilterVisible] = useState(false);
   const mainState = useSelector((state) => state.main);
 
+  console.log(props);
+
   //BackHandler.exitApp 는 정확하게 앱을 종료시키는게 아니라 강제로 백그라운드로 밀어버리는것 인듯.
   useEffect(() => {
     const endFeeeling = () => {
@@ -84,6 +86,19 @@ export default function Home(props) {
     }
     callInitialData();
   }, [isFocused]);
+
+  useEffect(() => {
+    async function checkUserInfo() {
+      const t = await getMyStorageItem('token');
+      if(t !== null) {
+        if(!mainState.user_id) {
+          await deleteMyStorage('token');
+          props.navigation.navigate("Login");
+        }
+      }
+    };
+    checkUserInfo();
+  }, [mainState.user_id]);
 
   useEffect(() => {
     async function callListImagaFromHomeList() {

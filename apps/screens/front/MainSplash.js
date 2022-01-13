@@ -38,7 +38,9 @@ export default function MainSplashScreen(props) {
       //console.log(t);
       if (t !== null && t !== '' && t !== false) {
         props.navigation.navigate('Main');
+        console.log("= 1 =================================");
       } else {
+        console.log("= 2 =================================");
         _handleOpen();
       }
     }
