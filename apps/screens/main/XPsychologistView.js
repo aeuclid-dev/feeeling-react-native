@@ -45,7 +45,6 @@ export default function XPsychologistView(props) {
                 </View>
             </View>
         </View>
-        
     </View>);
 }
 
