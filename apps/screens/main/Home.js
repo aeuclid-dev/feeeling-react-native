@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
   BackHandler,
+  TouchableOpacity
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
@@ -33,6 +34,7 @@ import {
 } from '../../store/actions/commonActions';
 import Laughface from '../../resource/icons/laugh-face.svg';
 import {deleteMyStorage, getMyStorageItem} from '../../modules/localStorage';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const {height, width} = Dimensions.get('window');
 
@@ -87,18 +89,18 @@ export default function Home(props) {
     callInitialData();
   }, [isFocused]);
 
-  useEffect(() => {
-    async function checkUserInfo() {
-      const t = await getMyStorageItem('token');
-      if(t !== null) {
-        if(!mainState.user_id) {
-          await deleteMyStorage('token');
-          props.navigation.navigate("Login");
-        }
-      }
-    };
-    checkUserInfo();
-  }, [mainState.user_id]);
+  // useEffect(() => {
+  //   async function checkUserInfo() {
+  //     const t = await getMyStorageItem('token');
+  //     if(t !== null) {
+  //       if(!mainState.user_id) {
+  //         await deleteMyStorage('token');
+  //         props.navigation.navigate("Login");
+  //       }
+  //     }
+  //   };
+  //   checkUserInfo();
+  // }, [mainState.user_id]);
 
   useEffect(() => {
     async function callListImagaFromHomeList() {
@@ -191,12 +193,17 @@ export default function Home(props) {
           {mainState.profile_photo_img !== null &&
           mainState.profile_photo_img !== '' ? (
             <View style={styles.profileImg}>
-              <Image
-                style={{width: 80, height: 80}}
-                source={{
-                  uri: `data:image/png;base64,${mainState.profile_photo_img}`,
-                }}
-              />
+              <TouchableOpacity onPress={() => {
+                  console.log(1);
+                  props.navigation.navigate('XPsychologistList');
+                }}>
+                <Image
+                  style={{width: 80, height: 80}}
+                  source={{
+                    uri: `data:image/png;base64,${mainState.profile_photo_img}`,
+                  }}
+                />
+              </TouchableOpacity>
             </View>
           ) : (
             <View style={styles.profileImg}>

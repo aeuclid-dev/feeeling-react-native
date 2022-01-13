@@ -2,16 +2,6 @@ import MMKVStorage from 'react-native-mmkv-storage';
 
 const MMKV = new MMKVStorage.Loader().initialize(); // Returns an MMKV Instance
 
-export const clearStore = () => {
-  try {
-    MMKV.clearStore();
-    return true;
-  } catch(e) {
-    console.log(e);
-    return false;
-  }
-};
-
 export const getMyStorageItem = (option) => {
   try {
     const data = MMKV.getMap('feeeling');

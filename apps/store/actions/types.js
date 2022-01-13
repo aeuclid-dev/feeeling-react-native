@@ -1,5 +1,5 @@
-export const API_URI = 'http://192.168.0.25';
-//export const API_URI = 'https://www.feeeling.co.kr';
+//export const API_URI = 'http://192.168.0.25';
+export const API_URI = 'https://www.feeeling.co.kr';
 //export const API_URI = 'http://demo.radiko.co.kr/feeeling';
 //export const API_URI='http://192.168.0.26:9090/feeeling';
 /** user Actions[S] */
