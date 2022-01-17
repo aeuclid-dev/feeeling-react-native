@@ -87,7 +87,7 @@ export default function HomeList(props) {
         }
       }}
       scrollEventThrottle={100}>
-      {mainState.post > 0 ? (
+      {mainState.post > 0 || mainState.test > 0 ? (
         Object.keys(mainState.testList).length > 0 &&
         JSON.stringify(mainState.testList) !== JSON.stringify({}) ? (
           mainState.testList.list.map((renderData, index) => {
@@ -267,11 +267,11 @@ export default function HomeList(props) {
       ) : (
         <View style={[styles.homeContentsDiv, styles.emptyHomeView]}>
           <View>
-            <TextNR style={styles.emptyHomeLabel}>작성한 검사가 없어요!</TextNR>
+            <TextNR style={styles.emptyHomeLabel}>요청한 검사가 없어요!</TextNR>
             <TextNR style={styles.emptyHomeLabel}>검사하러 가볼까요?</TextNR>
           </View>
           <View>
-            <Icon name="arrow-down-sharp" size={40} color={'black'} />
+            <Icon name="arrow-down-sharp" size={60} color={'black'} />
           </View>
         </View>
       )}
@@ -324,6 +324,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    marginTop: 15,
   },
   emptyHomeLabel: {
     fontSize: 20,

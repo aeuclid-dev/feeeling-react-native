@@ -27,9 +27,20 @@ export default function MainSplashScreen(props) {
   const [headerText, setHeaderText] = useState('');
   const [bottomText, setBottomText] = useState('');
 
-  const mainState = useSelector((state) => state.main);
-  console.log('#################################');
-  console.log(mainState.homeFilter);
+  const bottomTextCheckNewLine = (bottomTextString, styles) => {
+    if (bottomTextString.indexOf('\\n') !== -1) {
+      const bottomTextStringArr = bottomTextString.split('\\n');
+      return bottomTextStringArr.map((string, index) => {
+        return (
+          <TextNB key={index} style={styles}>
+            {string}
+          </TextNB>
+        );
+      });
+    } else {
+      return <TextNB style={[styles.popTitle]}>{bottomTextString}</TextNB>;
+    }
+  };
 
   const _screenAnimate = (finished) => {
     if (finished) {
@@ -134,7 +145,9 @@ export default function MainSplashScreen(props) {
       </ImageBackground>
       <View style={styles.appTitle}>
         <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-          <TextNR style={styles.appTitleMain}>{headerText}</TextNR>
+          <TextNB style={styles.appTitleMain}>
+            {headerText !== '' ? headerText : ''}
+          </TextNB>
         </View>
       </View>
       {/* <Animatable.View
@@ -151,12 +164,21 @@ export default function MainSplashScreen(props) {
       <View style={[styles.bottomPop]}>
         <Animated.View style={[styles.popup, slidePopUp]}>
           <View style={[styles.popTextDiv]}>
-            <TextNB style={[styles.popTitle]}>{bottomText}</TextNB>
-            {/* <TextNEB style={[styles.popTitle]}>로그인이 필요합니다!</TextNEB>
-            <TextNR style={[styles.popSubTitle]}>처음 사용하시는 경우</TextNR>
-            <TextNR style={[styles.popSubTitle]}>
-              회원가입을 먼저 해주세요!
-            </TextNR> */}
+            {bottomText !== '' ? (
+              bottomTextCheckNewLine(bottomText, [styles.popTitle])
+            ) : (
+              <>
+                <TextNEB style={[styles.popTitle]}>
+                  로그인이 필요합니다!
+                </TextNEB>
+                <TextNR style={[styles.popSubTitle]}>
+                  처음 사용하시는 경우
+                </TextNR>
+                <TextNR style={[styles.popSubTitle]}>
+                  회원가입을 먼저 해주세요!
+                </TextNR>
+              </>
+            )}
           </View>
           <View style={[styles.popBtnDiv]}>
             <TouchableOpacity style={styles.popBtn} onPress={_goLogin}>
@@ -185,12 +207,12 @@ const styles = StyleSheet.create({
   appTitle: {
     position: 'absolute',
     top: (height / 5) * 2,
-    width: width - 40,
+    width: width * 0.8,
     justifyContent: 'center',
-    marginLeft: 40,
+    marginLeft: 20,
   },
   appTitleMain: {
-    fontSize: 30,
+    fontSize: 28,
     color: '#FFF',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: {width: -1, height: 1},
@@ -236,6 +258,7 @@ const styles = StyleSheet.create({
   popTextDiv: {
     marginVertical: 3,
     marginHorizontal: 20,
+    alignItems: 'center',
   },
   popTitle: {
     color: '#4a4a4a',

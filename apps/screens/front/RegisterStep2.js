@@ -112,7 +112,6 @@ export default function RegisterStep2(props) {
         <View style={{alignItems: 'center', flex: 1}}>
           <View style={[styles.promptJoinHeader]}>
             <ScrollView>
-              <TextNB>힝구{visibleData}</TextNB>
               <View>{modalContent[visibleData]}</View>
             </ScrollView>
           </View>
@@ -122,7 +121,7 @@ export default function RegisterStep2(props) {
               setDialogVisible(false);
             }}>
             <View style={[styles.promptFooterBtn]}>
-              <TextNB style={styles.promptFooterYesText}>닫기</TextNB>
+              <TextNB style={styles.promptFooterText}>닫기</TextNB>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -200,7 +199,16 @@ const styles = StyleSheet.create({
     borderTopColor: '#3097ce',
   },
   promptFooterBtn: {
-    backgroundColor: '#3097ce',
     justifyContent: 'center',
+    marginBottom: 7,
+    marginHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    backgroundColor: '#ff6f61',
+  },
+  promptFooterText: {
+    fontSize: 16,
+    color: '#FFF',
   },
 });

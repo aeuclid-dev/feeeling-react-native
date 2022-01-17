@@ -24,7 +24,7 @@ export default function Alarm({navigation}) {
   useEffect(() => {
     async function callInitialData() {
       if (isFocused) {
-        dispatch(GetAlarmInitData(commonstate.alarmList, 'F'));
+        dispatch(GetAlarmInitData(commonstate.alarmFilter, 'F'));
       }
     }
     callInitialData();

@@ -191,16 +191,10 @@ export default function Home(props) {
             </View>
           )}
           <View>
-            {mainState.nickname !== '' && mainState.nickname !== null ? (
-              <TextNB style={styles.profileUpper}>
-                {mainState.nickname}님!
-              </TextNB>
-            ) : (
-              <TextNB style={styles.profileUpper}>
-                {mainState.user_id}님!
-              </TextNB>
-            )}
-            <TextNB style={styles.profileUpper}>{welcomeText}</TextNB>
+            <TextNB style={styles.profileUpper}>{mainState.nickname}님!</TextNB>
+            <TextNB style={[styles.profileUpper, styles.profileUpperText]}>
+              {welcomeText}
+            </TextNB>
           </View>
           <View style={styles.profile}>
             <View style={styles.profileDivShort}>
@@ -283,6 +277,9 @@ const styles = StyleSheet.create({
   profileUpper: {
     color: '#FFF',
     fontSize: 16,
+  },
+  profileUpperText: {
+    width: width * 0.6,
   },
   profile: {
     flexDirection: 'row',
