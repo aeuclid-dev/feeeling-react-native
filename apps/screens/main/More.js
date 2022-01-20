@@ -247,23 +247,26 @@ export default function More({navigation}) {
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate('Notice')}>
               <View style={styles.moreBtnRow}>
-                <IconNotice color={'red'} style={styles.moreBtnIcon} />
-                {/* <Icon name="megaphone-outline" size={34} color={'red'} /> */}
+                <View style={[styles.moreBtnIcon, styles.moreBtnWrapper]}>
+                  <IconNotice color={'red'} />
+                </View>
                 <TextNR>공지사항</TextNR>
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback onPress={() => setUserModalVisible(true)}>
               <View style={styles.moreBtnRow}>
-                <IconInfo style={styles.moreBtnIcon} />
-                {/* <MCIcon name="shield-account-outline" size={34} color={'black'} /> */}
+                <View style={[styles.moreBtnIcon, styles.moreBtnWrapper]}>
+                  <IconInfo />
+                </View>
                 <TextNR>개인/보안</TextNR>
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
               onPress={() => setTesteeModalVisible(true)}>
               <View style={styles.moreBtnRow}>
-                <IconTesteeInfo style={styles.moreBtnIcon} />
-                {/* <AntIcon name="picture" size={34} color={'black'} /> */}
+                <View style={[styles.moreBtnIcon, styles.moreBtnWrapper]}>
+                  <IconTesteeInfo />
+                </View>
                 <TextNR>그린이</TextNR>
               </View>
             </TouchableWithoutFeedback>
@@ -283,12 +286,9 @@ export default function More({navigation}) {
                 });
               }}>
               <View style={styles.moreBtnRow}>
-                <AntIcon
-                  name="logout"
-                  size={28}
-                  color={'black'}
-                  style={styles.moreBtnIcon}
-                />
+                <View style={[styles.moreBtnIcon, styles.moreBtnWrapper]}>
+                  <AntIcon name="logout" size={28} color={'black'} />
+                </View>
                 <TextNR>로그아웃</TextNR>
               </View>
             </TouchableWithoutFeedback>
@@ -1205,6 +1205,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  moreBtnWrapper: {
+    alignItems: 'center',
+    width: 34,
   },
   moreBtnIcon: {
     margin: 5,

@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   testBtnView: {
     position: 'absolute',
-    width: width * 0.7,
+    width: width * 0.75,
     top: 50,
     paddingHorizontal: 30,
     paddingVertical: 20,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.5)',
     borderRadius: 10,
     opacity: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 15,
     marginVertical: 7,
     justifyContent: 'flex-start',
@@ -207,6 +207,8 @@ const styles = StyleSheet.create({
     color: '#4a4a4a',
     letterSpacing: 0.4,
     marginLeft: 15,
+    width: 0,
+    flexGrow: 1,
   },
   btnRowText: {
     margin: 5,

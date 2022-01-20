@@ -530,6 +530,7 @@ const styles = StyleSheet.create({
     padding: 15,
     minHeight: 50,
     marginHorizontal: 15,
+    marginBottom: 5,
   },
   newUserAddBtnText: {
     color: '#FFF',

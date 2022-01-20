@@ -10,7 +10,7 @@ import {checkBackgroundNoti} from './apps/modules/pushNotification';
 
 // Register background handler
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-  console.log('back');
+  //console.log('back');
   console.log(messaging().isAutoInitEnabled);
   checkBackgroundNoti(remoteMessage);
   //console.log('Message handled in the background!', remoteMessage);

@@ -192,7 +192,7 @@ export default function Home(props) {
           )}
           <View>
             <TextNB style={styles.profileUpper}>{mainState.nickname}님!</TextNB>
-            <TextNB style={[styles.profileUpper, styles.profileUpperText]}>
+            <TextNB style={[styles.profileUpperSub, styles.profileUpperText]}>
               {welcomeText}
             </TextNB>
           </View>
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     width: width - 50,
     borderRadius: 14,
     marginVertical: 5,
-    padding: 25,
+    padding: 20,
   },
   profileImg: {
     position: 'absolute',
@@ -277,9 +277,14 @@ const styles = StyleSheet.create({
   profileUpper: {
     color: '#FFF',
     fontSize: 16,
+    marginBottom: 3,
+  },
+  profileUpperSub: {
+    color: '#FFF',
+    fontSize: 14,
   },
   profileUpperText: {
-    width: width * 0.6,
+    width: width - 50 - 80 - 14 - 12,
   },
   profile: {
     flexDirection: 'row',

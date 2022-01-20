@@ -20,14 +20,13 @@ const {width, height} = Dimensions.get('window');
 export default function SurveyList(props) {
   const dispatch = useDispatch();
   const mainState = useSelector((state) => state.main);
-  //const textRef = useRef();
   return (
     <KeyboardAvoidingView
       style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
       //behavior="position"
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={height * 0.1 + 100}>
-      <ScrollView>
+      <ScrollView ref={props.scrollRef}>
         {mainState.testServey
           .filter((obj) => obj.order_no === props.questionSteps)[0]
           .answers.map(

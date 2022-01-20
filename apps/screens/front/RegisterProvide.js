@@ -16,8 +16,8 @@ export default function RegisterProvide(props) {
     });
   }, []);
   return (
-    <View>
-      {provide.split('\n').map((line, index) => {
+    <View style={{flex: 1, alignItems: 'flex-start'}}>
+      {provide.split('\\n').map((line, index) => {
         return <Text key={index}>{line}</Text>;
       })}
     </View>

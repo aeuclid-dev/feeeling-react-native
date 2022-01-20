@@ -51,6 +51,7 @@ export default function CameraForTest(props) {
     if (testCamera) {
       const options = {quality: 0.5, base64: true, imageType: true};
       await testCamera.current.takePictureAsync(options).then(async (res) => {
+        console.log(res.pictureOrientation);
         let file = {
           name: res.uri.split('/').reverse()[0],
           uri: res.uri,
@@ -91,6 +92,7 @@ export default function CameraForTest(props) {
         console.log('User tapped custom button: ', res.customButton);
         alert(res.customButton);
       } else {
+        console.log(res);
         const source = {
           name: res.fileName,
           uri: res.uri,

@@ -16,8 +16,8 @@ export default function RegisterTrems(props) {
     });
   }, []);
   return (
-    <View>
-      {trems.split('\n').map((line, index) => {
+    <View style={{flex: 1, alignItems: 'flex-start'}}>
+      {trems.split('\\n').map((line, index) => {
         return <Text key={index}>{line}</Text>;
       })}
     </View>

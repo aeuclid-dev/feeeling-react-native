@@ -37,7 +37,6 @@ export default function CameraForUser(props) {
   const route = useRoute();
   const testCamera = useRef(null);
   const [cameraType, setCameraType] = useState('back');
-  console.log(route);
   /* route 정보
    * test 에서는 아마 name : TestPage
    * {"key": "Join-KnTVf7OCOAWOoPgSYI0el", "name": "Join", "params": undefined}

@@ -111,9 +111,7 @@ export default function RegisterStep2(props) {
         style={styles.serviceDialog}>
         <View style={{alignItems: 'center', flex: 1}}>
           <View style={[styles.promptJoinHeader]}>
-            <ScrollView>
-              <View>{modalContent[visibleData]}</View>
-            </ScrollView>
+            <ScrollView>{modalContent[visibleData]}</ScrollView>
           </View>
           <TouchableWithoutFeedback
             style={styles.promptJoinFooter}

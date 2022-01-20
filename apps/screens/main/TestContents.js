@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   Dimensions,
@@ -27,6 +27,8 @@ const qstep = 4; //static step count(selecttest,selectuser,uploadimage,setimage,
 
 export default function TestContents(props) {
   const dispatch = useDispatch();
+  const scrollRef = useRef();
+
   const mainState = useSelector((state) => state.main);
   const [questionSteps, setQuestionSteps] = useState(0);
   const is_last = mainState.testServey.length <= questionSteps;
@@ -71,6 +73,10 @@ export default function TestContents(props) {
     } else {
       await dispatch(setQuestion(stepNextQuestion));
       await setQuestionSteps(questionSteps + 1);
+      await scrollRef.current?.scrollTo({
+        y: 0,
+        animated: true,
+      });
       await props.onStepUp();
     }
   };
@@ -119,6 +125,7 @@ export default function TestContents(props) {
           <SurveyList
             questionSteps={questionSteps}
             style={styles.surveyContentsListDiv}
+            scrollRef={scrollRef}
           />
         ) : (
           <KeyboardAvoidingView
@@ -132,10 +139,10 @@ export default function TestContents(props) {
             //behavior="position"
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             keyboardVerticalOffset={height * 0.1 + 100}>
-            <View>
+            <View style={styles.bottomContents}>
               <TextInput
                 style={{
-                  height: height / 7,
+                  height: height / 8,
                   borderStyle: 'solid',
                   borderWidth: 1,
                   borderColor: '#ff6f61',
@@ -189,5 +196,9 @@ const styles = StyleSheet.create({
   surveyFooterDiv: {
     width: width,
     height: (height / 10) * 1,
+  },
+  bottomContents: {
+    marginHorizontal: 20,
+    marginVertical: 5,
   },
 });
